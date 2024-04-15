@@ -27,36 +27,12 @@ export default function InputSection({
         <form className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
           <div className="px-4 py-6 sm:p-8">
             <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              {/* <div className="sm:col-span-4">
-                <label
-                  htmlFor="website"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Website
-                </label>
-                <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                    <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
-                      http://
-                    </span>
-                    <input
-                      type="text"
-                      name="website"
-                      id="website"
-                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                      placeholder="www.example.com"
-                    />
-                  </div>
-                </div>
-              </div> */}
-              {/* companyName: "", companyDescription: "", productDescription: "",
-              targetCompanyName: "", */}
               <div className="sm:col-span-4">
                 <label
                   htmlFor="companyName"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Company Name
+                  公司名称
                 </label>
                 <div className="mt-2">
                   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
@@ -77,7 +53,7 @@ export default function InputSection({
                   htmlFor="companyDescription"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Company Description
+                  公司描述
                 </label>
                 <div className="mt-2">
                   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
@@ -98,7 +74,7 @@ export default function InputSection({
                   htmlFor="about"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Describe Your Product Here...
+                  对产品的描述
                 </label>
                 <div className="mt-2">
                   <textarea
@@ -120,7 +96,7 @@ export default function InputSection({
                   htmlFor="targetCompanyName"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Target Company Name
+                  目标公司名称
                 </label>
                 <div className="mt-2">
                   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
@@ -128,6 +104,27 @@ export default function InputSection({
                       type="text"
                       name="targetCompanyName"
                       id="targetCompanyName"
+                      onChange={textChangeHandler}
+                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                      placeholder=" "
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="targetCompanyName"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  目标公司网址
+                </label>
+                <div className="mt-2">
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                    <input
+                      type="text"
+                      name="targetCompanyURL"
+                      id="targetCompanyURL"
                       onChange={textChangeHandler}
                       className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                       placeholder=" "

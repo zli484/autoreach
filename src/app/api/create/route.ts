@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { chatModelGPT4 } from "@/lib/openai";
+import { chatModelGPT3P5 } from "@/lib/openai";
 
 export async function POST(request: NextRequest) {
   console.log("POST /api/analyze");
@@ -9,6 +10,7 @@ export async function POST(request: NextRequest) {
   const company = data.companyName;
   const companyDescription = data.companyDescription;
   const targetCompanyName = data.targetCompanyName;
+  const targetCompanyWebSummary = data.targetCompanyWebSummary;
 
   console.log("product description is", productDescription);
 
@@ -23,11 +25,15 @@ export async function POST(request: NextRequest) {
   company description: ${companyDescription}
   product description: ${productDescription}
   customer company name: ${targetCompanyName}
+  customer company description:: ${targetCompanyWebSummary}
+  
 
   Keep it under 200 words. Thanks!
   `.trim();
 
-  const chatModelResult = await chatModelGPT4.predict(text);
+  console.log("text is", text);
+
+  const chatModelResult = await chatModelGPT3P5.predict(text);
 
   console.log(chatModelResult);
 

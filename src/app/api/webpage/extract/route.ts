@@ -12,6 +12,10 @@ export async function POST(request: NextRequest) {
   const data = await request.json();
   //   const splitDocs = data.splitDocs;
 
+  console.log("data", data);
+
+  const source_url = data.targetCompanyURL;
+
   const loadedData = await loadWeb(source_url);
   console.log("loadedData", loadedData);
   console.log("loadedData 2", loadedData[0].pageContent);
