@@ -21,6 +21,8 @@ export default function Recommendation() {
     companyDescription: "",
     productDescription: "",
     targetCompanyName: "",
+    targetCompanyURL: "",
+    targetCompanyWebSummary: "",
     draft: "",
   });
 
@@ -53,8 +55,10 @@ export default function Recommendation() {
     const webSummaryJson = await webSummary.json();
 
     console.log("webSummaryJson is", webSummaryJson);
-
-    setWebSummary(webSummaryJson.webSummary);
+    setFormData({
+      ...formData,
+      targetCompanyWebSummary: webSummaryJson.webSummary,
+    });
 
     setLoading(false);
   };
@@ -65,7 +69,8 @@ export default function Recommendation() {
     setLoading(true);
     console.log("formData is", formData);
 
-    // Pass the description of the job, and expect a list of skills required by the job
+    await handleLoadWebInfo(e);
+
     const response = await fetch("/api/create", {
       method: "POST",
       headers: {
@@ -82,16 +87,6 @@ export default function Recommendation() {
   return (
     <div className="flex flex-col m-16 p-16 space-y-3">
       <div className="space-y-3">
-        {/* <Textarea
-          rows={10}
-          name="jd"
-          onChange={handleChange}
-          placeholder="Place holder for job description"
-          size="lg"
-        />
-        <Button colorScheme="blue" onClick={handleSubmitAnalyzeSkills}>
-          Analyze Skills
-        </Button> */}
         <InputSection
           textChangeHandler={handleChange}
           submitHandler={handleSubmitGenerateDraft}
@@ -105,21 +100,6 @@ export default function Recommendation() {
             </div>
           )}
         </div>
-      </div>
-      {/* Load web content section */}
-      <div>
-        <ButtonGroup spacing="6">
-          <Button
-            colorScheme="blue"
-            onClick={handleLoadWebInfo}
-            isLoading={loading}
-          >
-            Load Web Info
-          </Button>
-        </ButtonGroup>
-      </div>
-      <div>
-        <Markdown>{webSummary}</Markdown>
       </div>
     </div>
   );
