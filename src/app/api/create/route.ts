@@ -6,11 +6,14 @@ export async function POST(request: NextRequest) {
   console.log("POST /api/analyze");
 
   const data = await request.json();
-  const productDescription = data.productDescription;
-  const company = data.companyName;
-  const companyDescription = data.companyDescription;
-  const targetCompanyName = data.targetCompanyName;
-  const targetCompanyWebSummary = data.targetCompanyWebSummary;
+
+  console.log("data received in Analyze API is", data);
+
+  const productDescription = data.formData.productDescription;
+  const company = data.formData.companyName;
+  const companyDescription = data.formData.companyDescription;
+  const targetCompanyName = data.formData.targetCompanyName;
+  const webSummary = data.webSummary;
 
   console.log("product description is", productDescription);
 
@@ -25,10 +28,11 @@ export async function POST(request: NextRequest) {
   company description: ${companyDescription}
   product description: ${productDescription}
   customer company name: ${targetCompanyName}
-  customer company description:: ${targetCompanyWebSummary}
-  
+  customer company description:: ${webSummary}
 
-  Keep it under 200 words. Thanks!
+  Also provide Chinese translation.
+
+  Keep it under 200 words (not including the translation). Thanks!
   `.trim();
 
   console.log("text is", text);

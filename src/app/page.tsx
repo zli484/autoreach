@@ -1,5 +1,6 @@
+"use client";
 import Image from "next/image";
-import { HomeScreen } from "../components/screens/homeScreen";
+import HomeScreen from "@/components/screens/homeScreen";
 
 export default function Home() {
   return (
