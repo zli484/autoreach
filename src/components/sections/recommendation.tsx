@@ -1,10 +1,12 @@
 "use client";
-import { Textarea } from "@chakra-ui/react";
+import { Divider, Textarea } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { useState } from "react";
 import { Spinner } from "@chakra-ui/react";
 import Markdown from "react-markdown";
 import InputSection from "./input";
+import EmailDraftDisplay from "./emailDraftDisplay";
+import WebSummaryDisplay from "./webSummaryDisplay";
 
 export default function Recommendation() {
   const handleChange = (e: any) => {
@@ -14,15 +16,17 @@ export default function Recommendation() {
 
   const [loading, setLoading] = useState(false);
   // const [webContent, setWebContent] = useState("");
+  // const [webSummary, setWebSummary] = useState("");
+
   const [webSummary, setWebSummary] = useState("");
 
   const [formData, setFormData] = useState({
-    companyName: "",
-    companyDescription: "",
+    companyName: "Luoyang Aimeil Diamond Co., Ltd",
+    companyDescription:
+      "Luoyang Aimeil Diamond Co., Ltd. was founded in 2011, owns a core expert team who used to work in the field of super abrasives material for more than 20 years.",
     productDescription: "",
     targetCompanyName: "",
     targetCompanyURL: "",
-    targetCompanyWebSummary: "",
     draft: "",
   });
 
@@ -31,36 +35,16 @@ export default function Recommendation() {
     e.preventDefault();
     setLoading(true);
 
-    // Pass the description of the job, and expect a list of skills required by the job
-    const response = await fetch("/api/webpage/extract", {
+    const webSummaryJSON = await fetch("/api/webpage/summarize", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
-    });
+      body: JSON.stringify({ targetCompanyURL: formData.targetCompanyURL }),
+    }).then((res) => res.json());
 
-    const responseJson = await response.json();
-
-    console.log("responseJson is", responseJson);
-
-    const webSummary = await fetch("/api/webpage/summarize", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ webContent: responseJson.webContent }),
-    });
-
-    const webSummaryJson = await webSummary.json();
-
-    console.log("webSummaryJson is", webSummaryJson);
-    setFormData({
-      ...formData,
-      targetCompanyWebSummary: webSummaryJson.webSummary,
-    });
-
-    setLoading(false);
+    console.log("websummary is", webSummaryJSON.webSummary);
+    setWebSummary(webSummaryJSON.webSummary);
   };
 
   const handleSubmitGenerateDraft = async (e: any) => {
@@ -71,12 +55,15 @@ export default function Recommendation() {
 
     await handleLoadWebInfo(e);
 
+    console.log("after handle load info, now formdata is", formData);
+    console.log("after handle load info, now websummary is", webSummary);
+
     const response = await fetch("/api/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({ formData, webSummary }),
     });
 
     const responseJson = await response.json();
@@ -85,22 +72,28 @@ export default function Recommendation() {
   };
 
   return (
-    <div className="flex flex-col m-16 p-16 space-y-3">
-      <div className="space-y-3">
-        <InputSection
-          textChangeHandler={handleChange}
-          submitHandler={handleSubmitGenerateDraft}
-        />
-        <div className="">
-          {loading ? (
-            <Spinner size="xl" />
-          ) : (
-            <div className="space-y-3">
-              <Markdown>{formData.draft}</Markdown>
-            </div>
-          )}
+    <div className="flex flex-col w-full space-y-3">
+      <InputSection
+        textChangeHandler={handleChange}
+        submitHandler={handleSubmitGenerateDraft}
+      />
+      {loading ? (
+        <div className="bg-white p-3 rounded-3xl">
+          <Spinner size="xl" />
         </div>
-      </div>
+      ) : (
+        webSummary && (
+          <div>
+            <div className="bg-white p-3 mb-3 rounded-3xl">
+              <EmailDraftDisplay emailDraft={formData.draft} />
+            </div>
+            <Divider />
+            <div className="bg-white p-3 rounded-3xl">
+              <WebSummaryDisplay summary={webSummary} />
+            </div>
+          </div>
+        )
+      )}
     </div>
   );
 }

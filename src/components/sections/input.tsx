@@ -22,7 +22,7 @@ export default function InputSection({
   submitHandler: (e: any) => void;
 }) {
   return (
-    <div className="space-y-10 divide-y divide-gray-900/10">
+    <div className="w-full space-y-10 divide-y divide-gray-900/10">
       <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
         <form className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
           <div className="px-4 py-6 sm:p-8">
@@ -42,13 +42,13 @@ export default function InputSection({
                       id="companyName"
                       onChange={textChangeHandler}
                       className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                      placeholder=" Your company name"
+                      value={"Luoyang Aimeil Diamond Co., Ltd."}
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="sm:col-span-4">
+              <div className="col-span-full">
                 <label
                   htmlFor="companyDescription"
                   className="block text-sm font-medium leading-6 text-gray-900"
@@ -57,13 +57,14 @@ export default function InputSection({
                 </label>
                 <div className="mt-2">
                   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                    <input
-                      type="text"
+                    <textarea
                       name="companyDescription"
                       id="companyDescription"
                       onChange={textChangeHandler}
                       className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                      placeholder=" "
+                      value={
+                        "Luoyang Aimeil Diamond Co., Ltd. was founded in 2011, owns a core expert team who used to work in the field of super abrasives material for more than 20 years. "
+                      }
                     />
                   </div>
                 </div>
@@ -87,7 +88,7 @@ export default function InputSection({
                   />
                 </div>
                 <p className="mt-3 text-sm leading-6 text-gray-600">
-                  Write a few sentences about the product you are offering
+                  撰写对于产品的详细描述
                 </p>
               </div>
 
